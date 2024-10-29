@@ -1,6 +1,6 @@
-package model
+package service
 
-type Product struct {
+type ProductSrv struct {
 	ID    int
 	Name  string
 	Price float64

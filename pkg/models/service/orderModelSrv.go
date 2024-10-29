@@ -1,6 +1,6 @@
-package model
+package service
 
-type Order struct {
+type OrderSrv struct {
 	ID         int
 	ProductID  int
 	Quantity   int

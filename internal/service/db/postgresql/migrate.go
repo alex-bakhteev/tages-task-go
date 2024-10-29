@@ -1,4 +1,4 @@
-package db
+package postgresql
 
 import (
 	"github.com/golang-migrate/migrate/v4"
@@ -14,7 +14,7 @@ func RunMigrations(databaseURL string) {
 		log.Fatal(err)
 	}
 
-	sourceURL := "file://" + wd + "/internal/db/migrations"
+	sourceURL := "file://" + wd + "/internal/service/db/postgresql/migrations"
 	m, err := migrate.New(
 		sourceURL,
 		databaseURL)
