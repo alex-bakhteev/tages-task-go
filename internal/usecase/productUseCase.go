@@ -3,24 +3,29 @@ package usecase
 import (
 	"context"
 	"errors"
-	"tages-task-go/internal/service/db/postgresql"
 	"tages-task-go/pkg/logging"
 	"tages-task-go/pkg/models/service"
 	"tages-task-go/pkg/models/usecase"
 )
 
-type ProductUseCase interface {
-	CreateProduct(ctx context.Context, product usecase.ProductUC) error
-	GetProduct(ctx context.Context, id int) (usecase.ProductUC, error)
-	GetAllProducts(ctx context.Context) ([]usecase.ProductUC, error)
+//type ProductUseCase interface {
+//	CreateProduct(ctx context.Context, product usecase.ProductUC) error
+//	GetProduct(ctx context.Context, id int) (usecase.ProductUC, error)
+//	GetAllProducts(ctx context.Context) ([]usecase.ProductUC, error)
+//}
+
+type ProductRepository interface {
+	CreateProduct(ctx context.Context, product service.ProductSrv) error
+	GetProductByID(ctx context.Context, id int) (service.ProductSrv, error)
+	GetAllProducts(ctx context.Context) ([]service.ProductSrv, error)
 }
 
 type productUsecase struct {
-	repo   postgresql.ProductRepository
+	repo   ProductRepository
 	logger *logging.Logger
 }
 
-func NewProductUseCase(repo postgresql.ProductRepository, logger *logging.Logger) ProductUseCase {
+func NewProductUseCase(repo ProductRepository, logger *logging.Logger) *productUsecase {
 	return &productUsecase{repo: repo, logger: logger}
 }
 

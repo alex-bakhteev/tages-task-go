@@ -1,13 +1,21 @@
 package http
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"net/http"
 	"strconv"
 	"tages-task-go/pkg/models"
 	"tages-task-go/pkg/models/transport"
+	"tages-task-go/pkg/models/usecase"
 )
+
+type ProductUseCase interface {
+	CreateProduct(ctx context.Context, product usecase.ProductUC) error
+	GetProduct(ctx context.Context, id int) (usecase.ProductUC, error)
+	GetAllProducts(ctx context.Context) ([]usecase.ProductUC, error)
+}
 
 func (h *Handler) registerProductRoutes(router *mux.Router) {
 	router.HandleFunc("/products", h.createProduct).Methods("POST")

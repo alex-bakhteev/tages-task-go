@@ -1,13 +1,21 @@
 package http
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"net/http"
 	"strconv"
 	"tages-task-go/pkg/models"
 	"tages-task-go/pkg/models/transport"
+	"tages-task-go/pkg/models/usecase"
 )
+
+type OrderUseCase interface {
+	CreateOrder(ctx context.Context, order usecase.OrderUC) error
+	GetOrder(ctx context.Context, id int) (usecase.OrderUC, error)
+	GetAllOrders(ctx context.Context) ([]usecase.OrderUC, error)
+}
 
 func (h *Handler) registerOrderRoutes(router *mux.Router) {
 	router.HandleFunc("/orders", h.createOrder).Methods("POST")

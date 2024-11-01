@@ -23,7 +23,7 @@ func Initialize() (*mux.Router, error) {
 	orderRepo := postgresql.NewOrderRepository(DbPool, logger)
 	productUC := usecase.NewProductUseCase(productRepo, logger)
 	orderUC := usecase.NewOrderUseCase(orderRepo, logger)
-	storeUC := usecase.NewStoreUseCase(orderUC, productUC)
+	storeUC := http.NewStoreUseCase(orderUC, productUC)
 
 	// Инициализация хендлеров и маршрутов
 	handler := http.NewHandler(storeUC)

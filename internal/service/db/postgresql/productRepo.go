@@ -9,11 +9,11 @@ import (
 	"tages-task-go/pkg/models/service"
 )
 
-type ProductRepository interface {
-	CreateProduct(ctx context.Context, product service.ProductSrv) error
-	GetProductByID(ctx context.Context, id int) (service.ProductSrv, error)
-	GetAllProducts(ctx context.Context) ([]service.ProductSrv, error)
-}
+//type ProductRepository interface {
+//	CreateProduct(ctx context.Context, product service.ProductSrv) error
+//	GetProductByID(ctx context.Context, id int) (service.ProductSrv, error)
+//	GetAllProducts(ctx context.Context) ([]service.ProductSrv, error)
+//}
 
 type productRepository struct {
 	db     *pgxpool.Pool

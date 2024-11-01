@@ -3,24 +3,30 @@ package usecase
 import (
 	"context"
 	"errors"
-	"tages-task-go/internal/service/db/postgresql"
 	"tages-task-go/pkg/logging"
 	"tages-task-go/pkg/models"
+	"tages-task-go/pkg/models/service"
 	"tages-task-go/pkg/models/usecase"
 )
 
-type OrderUseCase interface {
-	CreateOrder(ctx context.Context, order usecase.OrderUC) error
-	GetOrder(ctx context.Context, id int) (usecase.OrderUC, error)
-	GetAllOrders(ctx context.Context) ([]usecase.OrderUC, error)
+//type OrderUseCase interface {
+//	CreateOrder(ctx context.Context, order usecase.OrderUC) error
+//	GetOrder(ctx context.Context, id int) (usecase.OrderUC, error)
+//	GetAllOrders(ctx context.Context) ([]usecase.OrderUC, error)
+//}
+
+type OrderRepository interface {
+	CreateOrder(ctx context.Context, order *service.OrderSrv) error
+	GetOrderByID(ctx context.Context, id int) (*service.OrderSrv, error)
+	GetAllOrders(ctx context.Context) ([]*service.OrderSrv, error)
 }
 
 type orderUC struct {
-	repo   postgresql.OrderRepository
+	repo   OrderRepository
 	logger *logging.Logger
 }
 
-func NewOrderUseCase(repo postgresql.OrderRepository, logger *logging.Logger) OrderUseCase {
+func NewOrderUseCase(repo OrderRepository, logger *logging.Logger) *orderUC {
 	return &orderUC{repo: repo, logger: logger}
 }
 

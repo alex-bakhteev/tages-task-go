@@ -10,11 +10,11 @@ import (
 	"tages-task-go/pkg/models/service"
 )
 
-type OrderRepository interface {
-	CreateOrder(ctx context.Context, order *service.OrderSrv) error
-	GetOrderByID(ctx context.Context, id int) (*service.OrderSrv, error)
-	GetAllOrders(ctx context.Context) ([]*service.OrderSrv, error) // Новый метод для всех заказов
-}
+//type OrderRepository interface {
+//	CreateOrder(ctx context.Context, order *service.OrderSrv) error
+//	GetOrderByID(ctx context.Context, id int) (*service.OrderSrv, error)
+//	GetAllOrders(ctx context.Context) ([]*service.OrderSrv, error) // Новый метод для всех заказов
+//}
 
 type orderRepository struct {
 	db     *pgxpool.Pool

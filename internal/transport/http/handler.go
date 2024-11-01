@@ -4,14 +4,30 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"net/http"
-	"tages-task-go/internal/usecase"
 )
 
-type Handler struct {
-	storeUC usecase.StoreUseCase
+type StoreUseCase interface {
+	OrderUseCase
+	ProductUseCase
 }
 
-func NewHandler(storeUC usecase.StoreUseCase) *Handler {
+type storeUseCase struct {
+	OrderUseCase
+	ProductUseCase
+}
+
+func NewStoreUseCase(orderUC OrderUseCase, productUC ProductUseCase) StoreUseCase {
+	return &storeUseCase{
+		OrderUseCase:   orderUC,
+		ProductUseCase: productUC,
+	}
+}
+
+type Handler struct {
+	storeUC StoreUseCase
+}
+
+func NewHandler(storeUC StoreUseCase) *Handler {
 	return &Handler{
 		storeUC: storeUC,
 	}
