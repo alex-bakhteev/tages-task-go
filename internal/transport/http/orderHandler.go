@@ -5,8 +5,8 @@ import (
 	"github.com/gorilla/mux"
 	"net/http"
 	"strconv"
-	"tages-task-go/pkg/models"
-	"tages-task-go/pkg/models/transport"
+	"tages-task-go/internal/models/modelstr"
+	"tages-task-go/internal/models/modelsuc"
 )
 
 func (h *Handler) registerOrderRoutes(router *mux.Router) {
@@ -17,14 +17,18 @@ func (h *Handler) registerOrderRoutes(router *mux.Router) {
 
 // createOrder - обработчик для создания нового заказа
 func (h *Handler) createOrder(w http.ResponseWriter, r *http.Request) {
-	var orderDTO transport.OrderDTO
+	var orderDTO modelstr.OrderDTO
 	if err := json.NewDecoder(r.Body).Decode(&orderDTO); err != nil {
 		handleError(w, err, "Invalid request payload", http.StatusBadRequest)
 		return
 	}
 
-	orderUC := models.FromDtoToUseCaseOrder(orderDTO)
-	if err := h.storeUC.CreateOrder(r.Context(), orderUC); err != nil {
+	orderUC := modelsuc.OrderUC{
+		ID:        orderDTO.ID,
+		ProductID: orderDTO.ProductID,
+		Quantity:  orderDTO.Quantity,
+	}
+	if err := h.OrderUsecase.CreateOrder(r.Context(), orderUC); err != nil {
 		handleError(w, err, "Failed to create order", http.StatusInternalServerError)
 		return
 	}
@@ -34,15 +38,20 @@ func (h *Handler) createOrder(w http.ResponseWriter, r *http.Request) {
 
 // getOrders - обработчик для получения всех заказов
 func (h *Handler) getAllOrders(w http.ResponseWriter, r *http.Request) {
-	ordersUC, err := h.storeUC.GetAllOrders(r.Context())
+	ordersUC, err := h.OrderUsecase.GetAllOrders(r.Context())
 	if err != nil {
 		handleError(w, err, "Failed to fetch orders", http.StatusInternalServerError)
 		return
 	}
 
-	var ordersDTO []transport.OrderDTO
+	var ordersDTO []modelstr.OrderDTO
 	for _, orderUC := range ordersUC {
-		ordersDTO = append(ordersDTO, models.FromUseCaseToDtoOrder(orderUC))
+		orderDTO := modelstr.OrderDTO{
+			ID:        orderUC.ID,
+			ProductID: orderUC.ProductID,
+			Quantity:  orderUC.Quantity,
+		}
+		ordersDTO = append(ordersDTO, orderDTO)
 	}
 
 	sendJSONResponse(w, http.StatusOK, ordersDTO)
@@ -57,12 +66,16 @@ func (h *Handler) getOrderByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	orderUC, err := h.storeUC.GetOrder(r.Context(), id)
+	orderUC, err := h.OrderUsecase.GetOrder(r.Context(), id)
 	if err != nil {
 		handleError(w, err, "Order not found", http.StatusNotFound)
 		return
 	}
 
-	orderDTO := models.FromUseCaseToDtoOrder(orderUC)
+	orderDTO := modelstr.OrderDTO{
+		ID:        orderUC.ID,
+		ProductID: orderUC.ProductID,
+		Quantity:  orderUC.Quantity,
+	}
 	sendJSONResponse(w, http.StatusOK, orderDTO)
 }

@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
+	"tages-task-go/internal/models/modelssvc"
 	"tages-task-go/pkg/logging"
-	"tages-task-go/pkg/models/service"
 )
 
 type ProductRepository interface {
-	CreateProduct(ctx context.Context, product service.ProductSrv) error
-	GetProductByID(ctx context.Context, id int) (service.ProductSrv, error)
-	GetAllProducts(ctx context.Context) ([]service.ProductSrv, error)
+	CreateProduct(ctx context.Context, product modelssvc.ProductSrv) error
+	GetProductByID(ctx context.Context, id int) (modelssvc.ProductSrv, error)
+	GetAllProducts(ctx context.Context) ([]modelssvc.ProductSrv, error)
 }
 
 type productRepository struct {
@@ -25,7 +25,7 @@ func NewProductRepository(db *pgxpool.Pool, logger *logging.Logger) *productRepo
 }
 
 // Создание нового продукта
-func (r *productRepository) CreateProduct(ctx context.Context, product service.ProductSrv) error {
+func (r *productRepository) CreateProduct(ctx context.Context, product modelssvc.ProductSrv) error {
 	query := `INSERT INTO products (name, price) VALUES ($1, $2)`
 	_, err := r.db.Exec(ctx, query, product.Name, product.Price)
 	if err != nil {
@@ -41,8 +41,8 @@ func (r *productRepository) CreateProduct(ctx context.Context, product service.P
 }
 
 // Получение продукта по ID
-func (r *productRepository) GetProductByID(ctx context.Context, id int) (service.ProductSrv, error) {
-	var product service.ProductSrv
+func (r *productRepository) GetProductByID(ctx context.Context, id int) (modelssvc.ProductSrv, error) {
+	var product modelssvc.ProductSrv
 	query := `SELECT id, name, price FROM products WHERE id = $1`
 	err := r.db.QueryRow(ctx, query, id).Scan(&product.ID, &product.Name, &product.Price)
 	if err != nil {
@@ -58,7 +58,7 @@ func (r *productRepository) GetProductByID(ctx context.Context, id int) (service
 }
 
 // Получение всех продуктов
-func (r *productRepository) GetAllProducts(ctx context.Context) ([]service.ProductSrv, error) {
+func (r *productRepository) GetAllProducts(ctx context.Context) ([]modelssvc.ProductSrv, error) {
 	query := `SELECT id, name, price FROM products`
 	rows, err := r.db.Query(ctx, query)
 	if err != nil {
@@ -73,9 +73,9 @@ func (r *productRepository) GetAllProducts(ctx context.Context) ([]service.Produ
 	}
 	defer rows.Close()
 
-	var products []service.ProductSrv
+	var products []modelssvc.ProductSrv
 	for rows.Next() {
-		var product service.ProductSrv
+		var product modelssvc.ProductSrv
 		err = rows.Scan(&product.ID, &product.Name, &product.Price)
 		if err != nil {
 			if pgErr, ok := err.(*pgconn.PgError); ok {

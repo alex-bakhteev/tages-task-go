@@ -1,4 +1,4 @@
-package usecase
+package modelsuc
 
 type OrderUC struct {
 	ID        int

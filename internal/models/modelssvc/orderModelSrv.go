@@ -1,4 +1,4 @@
-package service
+package modelssvc
 
 type OrderSrv struct {
 	ID         int

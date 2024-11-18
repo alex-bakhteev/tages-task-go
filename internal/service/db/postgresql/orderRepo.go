@@ -6,14 +6,14 @@ import (
 	"fmt"
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
+	"tages-task-go/internal/models/modelssvc"
 	"tages-task-go/pkg/logging"
-	"tages-task-go/pkg/models/service"
 )
 
 type OrderRepository interface {
-	CreateOrder(ctx context.Context, order *service.OrderSrv) error
-	GetOrderByID(ctx context.Context, id int) (*service.OrderSrv, error)
-	GetAllOrders(ctx context.Context) ([]*service.OrderSrv, error) // Новый метод для всех заказов
+	CreateOrder(ctx context.Context, order *modelssvc.OrderSrv) error
+	GetOrderByID(ctx context.Context, id int) (*modelssvc.OrderSrv, error)
+	GetAllOrders(ctx context.Context) ([]*modelssvc.OrderSrv, error) // Новый метод для всех заказов
 }
 
 type orderRepository struct {
@@ -26,7 +26,7 @@ func NewOrderRepository(db *pgxpool.Pool, logger *logging.Logger) *orderReposito
 }
 
 // Получение всех заказов
-func (r *orderRepository) GetAllOrders(ctx context.Context) ([]*service.OrderSrv, error) {
+func (r *orderRepository) GetAllOrders(ctx context.Context) ([]*modelssvc.OrderSrv, error) {
 	rows, err := r.db.Query(ctx, "SELECT id, product_id, quantity, total_price FROM orders")
 	if err != nil {
 		if pgErr, ok := err.(*pgconn.PgError); ok {
@@ -40,10 +40,10 @@ func (r *orderRepository) GetAllOrders(ctx context.Context) ([]*service.OrderSrv
 	}
 	defer rows.Close()
 
-	var orders []*service.OrderSrv
+	var orders []*modelssvc.OrderSrv
 	for rows.Next() {
 		// Инициализируем переменную order перед каждой итерацией
-		order := &service.OrderSrv{}
+		order := &modelssvc.OrderSrv{}
 		err = rows.Scan(&order.ID, &order.ProductID, &order.Quantity, &order.TotalPrice)
 		if err != nil {
 			if pgErr, ok := err.(*pgconn.PgError); ok {
@@ -62,8 +62,8 @@ func (r *orderRepository) GetAllOrders(ctx context.Context) ([]*service.OrderSrv
 }
 
 // Получение заказа по ID
-func (r *orderRepository) GetOrderByID(ctx context.Context, id int) (*service.OrderSrv, error) {
-	var order service.OrderSrv
+func (r *orderRepository) GetOrderByID(ctx context.Context, id int) (*modelssvc.OrderSrv, error) {
+	var order modelssvc.OrderSrv
 	err := r.db.QueryRow(ctx, "SELECT id, product_id, quantity, total_price FROM orders WHERE id=$1", id).
 		Scan(&order.ID, &order.ProductID, &order.Quantity, &order.TotalPrice)
 	if err != nil {
@@ -80,7 +80,7 @@ func (r *orderRepository) GetOrderByID(ctx context.Context, id int) (*service.Or
 }
 
 // Создание нового заказа с автоматическим расчетом total_price
-func (r *orderRepository) CreateOrder(ctx context.Context, order *service.OrderSrv) error {
+func (r *orderRepository) CreateOrder(ctx context.Context, order *modelssvc.OrderSrv) error {
 	// Получаем цену товара
 	var productPrice float64
 	err := r.db.QueryRow(ctx, "SELECT price FROM products WHERE id=$1", order.ProductID).Scan(&productPrice)

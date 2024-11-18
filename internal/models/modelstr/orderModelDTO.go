@@ -1,4 +1,4 @@
-package transport
+package modelstr
 
 type OrderDTO struct {
 	ID        int `json:"id"`

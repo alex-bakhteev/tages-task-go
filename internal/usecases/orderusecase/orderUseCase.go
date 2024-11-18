@@ -1,31 +1,34 @@
-package usecase
+package orderusecase
 
 import (
 	"context"
 	"errors"
-	"tages-task-go/internal/service/db/postgresql"
+	"tages-task-go/internal/models/modelssvc"
+	"tages-task-go/internal/models/modelsuc"
 	"tages-task-go/pkg/logging"
-	"tages-task-go/pkg/models"
-	"tages-task-go/pkg/models/usecase"
 )
 
-type OrderUseCase interface {
-	CreateOrder(ctx context.Context, order usecase.OrderUC) error
-	GetOrder(ctx context.Context, id int) (usecase.OrderUC, error)
-	GetAllOrders(ctx context.Context) ([]usecase.OrderUC, error)
+type OrderRepo interface {
+	GetAllOrders(ctx context.Context) ([]*modelssvc.OrderSrv, error)
+	GetOrderByID(ctx context.Context, id int) (*modelssvc.OrderSrv, error)
+	CreateOrder(ctx context.Context, order *modelssvc.OrderSrv) error
 }
 
-type orderUC struct {
-	repo   postgresql.OrderRepository
+type OrderUC struct {
+	repo   OrderRepo
 	logger *logging.Logger
 }
 
-func NewOrderUseCase(repo postgresql.OrderRepository, logger *logging.Logger) OrderUseCase {
-	return &orderUC{repo: repo, logger: logger}
+func New(repo OrderRepo, logger *logging.Logger) *OrderUC {
+	return &OrderUC{repo: repo, logger: logger}
 }
 
-func (o *orderUC) CreateOrder(ctx context.Context, order usecase.OrderUC) error {
-	orderSrv := models.FromUseCaseToServiceOrder(order)
+func (o *OrderUC) CreateOrder(ctx context.Context, order modelsuc.OrderUC) error {
+	orderSrv := modelssvc.OrderSrv{
+		ID:        order.ID,
+		ProductID: order.ProductID,
+		Quantity:  order.Quantity,
+	}
 
 	if err := o.repo.CreateOrder(ctx, &orderSrv); err != nil {
 		o.logger.Error("Failed to create order: ", err)
@@ -35,14 +38,14 @@ func (o *orderUC) CreateOrder(ctx context.Context, order usecase.OrderUC) error 
 	return nil
 }
 
-func (o *orderUC) GetOrder(ctx context.Context, id int) (usecase.OrderUC, error) {
+func (o *OrderUC) GetOrder(ctx context.Context, id int) (modelsuc.OrderUC, error) {
 	orderSrv, err := o.repo.GetOrderByID(ctx, id)
 	if err != nil {
 		o.logger.Error("Failed to get order by ID: ", err)
-		return usecase.OrderUC{}, errors.New("failed to get order: " + err.Error())
+		return modelsuc.OrderUC{}, errors.New("failed to get order: " + err.Error())
 	}
 
-	orderUC := usecase.OrderUC{
+	orderUC := modelsuc.OrderUC{
 		ID:        orderSrv.ID,
 		ProductID: orderSrv.ProductID,
 		Quantity:  orderSrv.Quantity,
@@ -51,16 +54,16 @@ func (o *orderUC) GetOrder(ctx context.Context, id int) (usecase.OrderUC, error)
 	return orderUC, nil
 }
 
-func (o *orderUC) GetAllOrders(ctx context.Context) ([]usecase.OrderUC, error) {
+func (o *OrderUC) GetAllOrders(ctx context.Context) ([]modelsuc.OrderUC, error) {
 	ordersSrv, err := o.repo.GetAllOrders(ctx)
 	if err != nil {
 		o.logger.Error("Failed to get all orders: ", err)
 		return nil, errors.New("failed to get orders: " + err.Error())
 	}
 
-	var ordersUC []usecase.OrderUC
+	var ordersUC []modelsuc.OrderUC
 	for _, orderSrv := range ordersSrv {
-		orderUC := usecase.OrderUC{
+		orderUC := modelsuc.OrderUC{
 			ID:        orderSrv.ID,
 			ProductID: orderSrv.ProductID,
 			Quantity:  orderSrv.Quantity,

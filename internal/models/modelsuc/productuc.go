@@ -1,4 +1,4 @@
-package usecase
+package modelsuc
 
 type ProductUC struct {
 	ID    int

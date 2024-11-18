@@ -1,4 +1,4 @@
-package service
+package modelssvc
 
 type ProductSrv struct {
 	ID    int

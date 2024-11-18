@@ -5,8 +5,8 @@ import (
 	"github.com/gorilla/mux"
 	"net/http"
 	"strconv"
-	"tages-task-go/pkg/models"
-	"tages-task-go/pkg/models/transport"
+	"tages-task-go/internal/models/modelstr"
+	"tages-task-go/internal/models/modelsuc"
 )
 
 func (h *Handler) registerProductRoutes(router *mux.Router) {
@@ -17,14 +17,18 @@ func (h *Handler) registerProductRoutes(router *mux.Router) {
 
 // createProduct - обработчик для создания нового продукта
 func (h *Handler) createProduct(w http.ResponseWriter, r *http.Request) {
-	var productDTO transport.ProductDTO
+	var productDTO modelstr.ProductDTO
 	if err := json.NewDecoder(r.Body).Decode(&productDTO); err != nil {
 		handleError(w, err, "Invalid request payload", http.StatusBadRequest)
 		return
 	}
 
-	productUC := models.FromDtoToUseCaseProduct(productDTO)
-	if err := h.storeUC.CreateProduct(r.Context(), productUC); err != nil {
+	productUC := modelsuc.ProductUC{
+		ID:    productDTO.ID,
+		Name:  productDTO.Name,
+		Price: productDTO.Price,
+	}
+	if err := h.ProductUsecase.CreateProduct(r.Context(), productUC); err != nil {
 		handleError(w, err, "Failed to create product", http.StatusInternalServerError)
 		return
 	}
@@ -34,15 +38,20 @@ func (h *Handler) createProduct(w http.ResponseWriter, r *http.Request) {
 
 // getAllProducts - обработчик для получения всех продуктов
 func (h *Handler) getAllProducts(w http.ResponseWriter, r *http.Request) {
-	productsUC, err := h.storeUC.GetAllProducts(r.Context())
+	productsUC, err := h.ProductUsecase.GetAllProducts(r.Context())
 	if err != nil {
 		handleError(w, err, "Failed to fetch products", http.StatusInternalServerError)
 		return
 	}
 
-	var productsDTO []transport.ProductDTO
+	var productsDTO []modelstr.ProductDTO
 	for _, productUC := range productsUC {
-		productsDTO = append(productsDTO, models.FromUseCaseToDtoProduct(productUC))
+		productDTO := modelstr.ProductDTO{
+			ID:    productUC.ID,
+			Name:  productUC.Name,
+			Price: productUC.Price,
+		}
+		productsDTO = append(productsDTO, productDTO)
 	}
 
 	sendJSONResponse(w, http.StatusOK, productsDTO)
@@ -57,12 +66,16 @@ func (h *Handler) getProductByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	productUC, err := h.storeUC.GetProduct(r.Context(), id)
+	productUC, err := h.ProductUsecase.GetProduct(r.Context(), id)
 	if err != nil {
 		handleError(w, err, "Product not found", http.StatusNotFound)
 		return
 	}
 
-	productDTO := models.FromUseCaseToDtoProduct(productUC)
+	productDTO := modelstr.ProductDTO{
+		ID:    productUC.ID,
+		Name:  productUC.Name,
+		Price: productUC.Price,
+	}
 	sendJSONResponse(w, http.StatusOK, productDTO)
 }

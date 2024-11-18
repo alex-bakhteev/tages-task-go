@@ -1,19 +1,34 @@
 package http
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"net/http"
-	"tages-task-go/internal/usecase"
+	"tages-task-go/internal/models/modelsuc"
 )
 
-type Handler struct {
-	storeUC usecase.StoreUseCase
+type ProductUsecase interface {
+	CreateProduct(ctx context.Context, product modelsuc.ProductUC) error
+	GetProduct(ctx context.Context, id int) (modelsuc.ProductUC, error)
+	GetAllProducts(ctx context.Context) ([]modelsuc.ProductUC, error)
 }
 
-func NewHandler(storeUC usecase.StoreUseCase) *Handler {
+type OrderUsecase interface {
+	CreateOrder(ctx context.Context, order modelsuc.OrderUC) error
+	GetOrder(ctx context.Context, id int) (modelsuc.OrderUC, error)
+	GetAllOrders(ctx context.Context) ([]modelsuc.OrderUC, error)
+}
+
+type Handler struct {
+	ProductUsecase ProductUsecase
+	OrderUsecase   OrderUsecase
+}
+
+func NewHandler(productUC ProductUsecase, orderUC OrderUsecase) *Handler {
 	return &Handler{
-		storeUC: storeUC,
+		ProductUsecase: productUC,
+		OrderUsecase:   orderUC,
 	}
 }
 

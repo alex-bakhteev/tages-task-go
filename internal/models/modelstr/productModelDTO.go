@@ -1,4 +1,4 @@
-package transport
+package modelstr
 
 type ProductDTO struct {
 	ID    int     `json:"id"`

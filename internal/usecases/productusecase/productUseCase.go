@@ -1,31 +1,30 @@
-package usecase
+package productusecase
 
 import (
 	"context"
 	"errors"
-	"tages-task-go/internal/service/db/postgresql"
+	"tages-task-go/internal/models/modelssvc"
+	"tages-task-go/internal/models/modelsuc"
 	"tages-task-go/pkg/logging"
-	"tages-task-go/pkg/models/service"
-	"tages-task-go/pkg/models/usecase"
 )
 
-type ProductUseCase interface {
-	CreateProduct(ctx context.Context, product usecase.ProductUC) error
-	GetProduct(ctx context.Context, id int) (usecase.ProductUC, error)
-	GetAllProducts(ctx context.Context) ([]usecase.ProductUC, error)
+type ProductRepo interface {
+	CreateProduct(ctx context.Context, product modelssvc.ProductSrv) error
+	GetProductByID(ctx context.Context, id int) (modelssvc.ProductSrv, error)
+	GetAllProducts(ctx context.Context) ([]modelssvc.ProductSrv, error)
 }
 
-type productUsecase struct {
-	repo   postgresql.ProductRepository
+type ProductUsecase struct {
+	repo   ProductRepo
 	logger *logging.Logger
 }
 
-func NewProductUseCase(repo postgresql.ProductRepository, logger *logging.Logger) ProductUseCase {
-	return &productUsecase{repo: repo, logger: logger}
+func New(repo ProductRepo, logger *logging.Logger) *ProductUsecase {
+	return &ProductUsecase{repo: repo, logger: logger}
 }
 
-func (p *productUsecase) CreateProduct(ctx context.Context, product usecase.ProductUC) error {
-	productSrv := service.ProductSrv{
+func (p *ProductUsecase) CreateProduct(ctx context.Context, product modelsuc.ProductUC) error {
+	productSrv := modelssvc.ProductSrv{
 		Name:  product.Name,
 		Price: product.Price,
 	}
@@ -38,14 +37,14 @@ func (p *productUsecase) CreateProduct(ctx context.Context, product usecase.Prod
 	return nil
 }
 
-func (p *productUsecase) GetProduct(ctx context.Context, id int) (usecase.ProductUC, error) {
+func (p *ProductUsecase) GetProduct(ctx context.Context, id int) (modelsuc.ProductUC, error) {
 	productSrv, err := p.repo.GetProductByID(ctx, id)
 	if err != nil {
 		p.logger.Error("Failed to get product by ID: ", err)
-		return usecase.ProductUC{}, errors.New("failed to get product: " + err.Error())
+		return modelsuc.ProductUC{}, errors.New("failed to get product: " + err.Error())
 	}
 
-	productUC := usecase.ProductUC{
+	productUC := modelsuc.ProductUC{
 		ID:    productSrv.ID,
 		Name:  productSrv.Name,
 		Price: productSrv.Price,
@@ -54,16 +53,16 @@ func (p *productUsecase) GetProduct(ctx context.Context, id int) (usecase.Produc
 	return productUC, nil
 }
 
-func (p *productUsecase) GetAllProducts(ctx context.Context) ([]usecase.ProductUC, error) {
+func (p *ProductUsecase) GetAllProducts(ctx context.Context) ([]modelsuc.ProductUC, error) {
 	productsSrv, err := p.repo.GetAllProducts(ctx)
 	if err != nil {
 		p.logger.Error("Failed to get all products: ", err)
 		return nil, errors.New("failed to get products: " + err.Error())
 	}
 
-	var productsUC []usecase.ProductUC
+	var productsUC []modelsuc.ProductUC
 	for _, productSrv := range productsSrv {
-		productUC := usecase.ProductUC{
+		productUC := modelsuc.ProductUC{
 			ID:    productSrv.ID,
 			Name:  productSrv.Name,
 			Price: productSrv.Price,
