@@ -5,21 +5,16 @@ import (
 	"errors"
 	"tages-task-go/internal/models/modelssvc"
 	"tages-task-go/internal/models/modelsuc"
+	"tages-task-go/internal/usecases"
 	"tages-task-go/pkg/logging"
 )
 
-type ProductRepo interface {
-	CreateProduct(ctx context.Context, product modelssvc.ProductSrv) error
-	GetProductByID(ctx context.Context, id int) (modelssvc.ProductSrv, error)
-	GetAllProducts(ctx context.Context) ([]modelssvc.ProductSrv, error)
-}
-
 type ProductUsecase struct {
-	repo   ProductRepo
+	repo   usecases.ProductRepo
 	logger *logging.Logger
 }
 
-func New(repo ProductRepo, logger *logging.Logger) *ProductUsecase {
+func New(repo usecases.ProductRepo, logger *logging.Logger) *ProductUsecase {
 	return &ProductUsecase{repo: repo, logger: logger}
 }
 

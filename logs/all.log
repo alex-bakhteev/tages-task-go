@@ -1,0 +1,5 @@
+time="2024-11-25T10:24:21+03:00" level=info msg="Initializing server" func="tages-task-go/cmd/server.Initialize()" file="init.go:18"
+time="2024-11-25T10:24:21+03:00" level=info msg="read application configuration" func="tages-task-go/internal/config.GetConfig.func1()" file="config.go:31"
+time="2024-11-25T10:24:21+03:00" level=info msg="Connecting to PostgreSQL..." func="tages-task-go/internal/service/db/postgresql.InitDB()" file="connection.go:18"
+time="2024-11-25T10:24:21+03:00" level=info msg="Connected to PostgreSQL" func="tages-task-go/internal/service/db/postgresql.InitDB()" file="connection.go:66"
+time="2024-11-25T10:25:05+03:00" level=info msg="All orders retrieved successfully" func="tages-task-go/internal/usecases/orderusecase.(*OrderUC).GetAllOrders()" file="orderUseCase.go:68"

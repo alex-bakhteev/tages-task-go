@@ -5,21 +5,16 @@ import (
 	"errors"
 	"tages-task-go/internal/models/modelssvc"
 	"tages-task-go/internal/models/modelsuc"
+	"tages-task-go/internal/usecases"
 	"tages-task-go/pkg/logging"
 )
 
-type OrderRepo interface {
-	GetAllOrders(ctx context.Context) ([]*modelssvc.OrderSrv, error)
-	GetOrderByID(ctx context.Context, id int) (*modelssvc.OrderSrv, error)
-	CreateOrder(ctx context.Context, order *modelssvc.OrderSrv) error
-}
-
 type OrderUC struct {
-	repo   OrderRepo
+	repo   usecases.OrderRepo
 	logger *logging.Logger
 }
 
-func New(repo OrderRepo, logger *logging.Logger) *OrderUC {
+func New(repo usecases.OrderRepo, logger *logging.Logger) *OrderUC {
 	return &OrderUC{repo: repo, logger: logger}
 }
 
