@@ -12,9 +12,9 @@ type OrderRepo interface {
 }
 
 type ProductRepo interface {
-	CreateProduct(ctx context.Context, product modelssvc.ProductSrv) error
-	GetProductByID(ctx context.Context, id int) (modelssvc.ProductSrv, error)
-	GetAllProducts(ctx context.Context) ([]modelssvc.ProductSrv, error)
+	CreateProduct(ctx context.Context, product *modelssvc.ProductSrv) error
+	GetProductByID(ctx context.Context, id int) (*modelssvc.ProductSrv, error)
+	GetAllProducts(ctx context.Context) ([]*modelssvc.ProductSrv, error)
 }
 
 type Usecase struct {

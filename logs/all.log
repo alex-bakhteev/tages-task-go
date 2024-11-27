@@ -3,3 +3,121 @@ time="2024-11-25T10:24:21+03:00" level=info msg="read application configuration"
 time="2024-11-25T10:24:21+03:00" level=info msg="Connecting to PostgreSQL..." func="tages-task-go/internal/service/db/postgresql.InitDB()" file="connection.go:18"
 time="2024-11-25T10:24:21+03:00" level=info msg="Connected to PostgreSQL" func="tages-task-go/internal/service/db/postgresql.InitDB()" file="connection.go:66"
 time="2024-11-25T10:25:05+03:00" level=info msg="All orders retrieved successfully" func="tages-task-go/internal/usecases/orderusecase.(*OrderUC).GetAllOrders()" file="orderUseCase.go:68"
+time="2024-11-25T11:24:52+03:00" level=info msg="Initializing server" func="tages-task-go/cmd/server.Initialize()" file="init.go:18"
+time="2024-11-25T11:24:52+03:00" level=info msg="read application configuration" func="tages-task-go/internal/config.GetConfig.func1()" file="config.go:31"
+time="2024-11-25T11:24:52+03:00" level=info msg="Connecting to PostgreSQL..." func="tages-task-go/internal/service/db/postgresql.InitDB()" file="connection.go:18"
+time="2024-11-25T11:24:52+03:00" level=info msg="Connected to PostgreSQL" func="tages-task-go/internal/service/db/postgresql.InitDB()" file="connection.go:66"
+time="2024-11-25T11:25:43+03:00" level=info msg="Starting request: GET /orders" func="tages-task-go/internal/transport/http.WithRequestIDMiddleware.func1()" file="handler.go:28" x-request-id=813515f8-cb39-4344-916a-8936901b8de2
+time="2024-11-25T11:25:43+03:00" level=info msg="Fetching all users in usecase" func="tages-task-go/internal/usecases/orderusecase.(*OrderUC).GetAllOrders()" file="orderUseCase.go:54" x-request-id=813515f8-cb39-4344-916a-8936901b8de2
+time="2024-11-25T11:25:43+03:00" level=info msg="All orders retrieved successfully" func="tages-task-go/internal/usecases/orderusecase.(*OrderUC).GetAllOrders()" file="orderUseCase.go:70"
+time="2024-11-25T11:25:43+03:00" level=info msg="Handling request in ExampleHandler" func="tages-task-go/internal/transport/http.(*Handler).getAllOrders()" file="orderHandler.go:45" x-request-id=813515f8-cb39-4344-916a-8936901b8de2
+time="2024-11-25T11:26:17+03:00" level=info msg="Starting request: GET /orders" func="tages-task-go/internal/transport/http.WithRequestIDMiddleware.func1()" file="handler.go:28" x-request-id=8d6cdb0a-d62b-4d18-91e0-93a5c0ee8a45
+time="2024-11-25T11:26:17+03:00" level=info msg="Fetching all users in usecase" func="tages-task-go/internal/usecases/orderusecase.(*OrderUC).GetAllOrders()" file="orderUseCase.go:54" x-request-id=8d6cdb0a-d62b-4d18-91e0-93a5c0ee8a45
+time="2024-11-25T11:26:17+03:00" level=info msg="All orders retrieved successfully" func="tages-task-go/internal/usecases/orderusecase.(*OrderUC).GetAllOrders()" file="orderUseCase.go:70"
+time="2024-11-25T11:26:17+03:00" level=info msg="Handling request in ExampleHandler" func="tages-task-go/internal/transport/http.(*Handler).getAllOrders()" file="orderHandler.go:45" x-request-id=8d6cdb0a-d62b-4d18-91e0-93a5c0ee8a45
+time="2024-11-25T13:55:55+03:00" level=info msg="Initializing server" func="tages-task-go/cmd/server.Initialize()" file="init.go:18"
+time="2024-11-25T13:55:55+03:00" level=info msg="read application configuration" func="tages-task-go/internal/config.GetConfig.func1()" file="config.go:31"
+time="2024-11-25T13:55:55+03:00" level=info msg="Connecting to PostgreSQL..." func="tages-task-go/internal/service/db/postgresql.InitDB()" file="connection.go:18"
+time="2024-11-25T13:55:55+03:00" level=info msg="Connected to PostgreSQL" func="tages-task-go/internal/service/db/postgresql.InitDB()" file="connection.go:66"
+time="2024-11-25T13:57:23+03:00" level=info msg="Starting request: GET /orders" func="tages-task-go/internal/transport/http.(*Handler).InitRoutes.WithLoggerMiddleware.func1.1()" file="handler.go:34" x-request-id=e30c7e63-2173-4137-a34a-bd34062e2dc9
+time="2024-11-25T13:57:23+03:00" level=info msg="Fetching all users in usecase" func="tages-task-go/internal/usecases/orderusecase.(*OrderUC).GetAllOrders()" file="orderUseCase.go:53"
+time="2024-11-25T13:57:23+03:00" level=info msg="All orders retrieved successfully" func="tages-task-go/internal/usecases/orderusecase.(*OrderUC).GetAllOrders()" file="orderUseCase.go:69"
+time="2024-11-25T13:57:23+03:00" level=info msg="Handling GetAllProducts request" func="tages-task-go/internal/transport/http.(*Handler).getAllOrders()" file="orderHandler.go:46" x-request-id=e30c7e63-2173-4137-a34a-bd34062e2dc9
+time="2024-11-25T15:33:16+03:00" level=info msg="Initializing server" func="tages-task-go/cmd/server.Initialize()" file="init.go:18"
+time="2024-11-25T15:33:16+03:00" level=info msg="read application configuration" func="tages-task-go/internal/config.GetConfig.func1()" file="config.go:31"
+time="2024-11-25T15:33:16+03:00" level=info msg="Connecting to PostgreSQL..." func="tages-task-go/internal/service/db/postgresql.InitDB()" file="connection.go:18"
+time="2024-11-25T15:33:16+03:00" level=info msg="Connected to PostgreSQL" func="tages-task-go/internal/service/db/postgresql.InitDB()" file="connection.go:66"
+time="2024-11-25T15:33:21+03:00" level=info msg="Starting request: GET /orders" func="tages-task-go/internal/transport/http.(*Handler).InitRoutes.WithLoggerMiddleware.func1.1()" file="handler.go:88" x-request-id=e3e6eed9-663f-48db-b49f-565b67cc934d
+time="2024-11-25T15:33:21+03:00" level=info msg="Fetching all orders in usecase" func="tages-task-go/internal/usecases/orderusecase.(*OrderUC).GetAllOrders()" file="orderUseCase.go:55" x-request-id=e3e6eed9-663f-48db-b49f-565b67cc934d
+time="2024-11-25T15:33:21+03:00" level=info msg="All orders retrieved successfully" func="tages-task-go/internal/usecases/orderusecase.(*OrderUC).GetAllOrders()" file="orderUseCase.go:71"
+time="2024-11-25T15:33:21+03:00" level=info msg="Get all orders successfully" func="tages-task-go/pkg/logging.(*Logger).InfoCtx()" file="logging.go:106" x-request-id=e3e6eed9-663f-48db-b49f-565b67cc934d
+time="2024-11-25T15:53:23+03:00" level=info msg="Starting request: GET /orders/1" func="tages-task-go/internal/transport/http.(*Handler).InitRoutes.WithLoggerMiddleware.func1.1()" file="handler.go:88" x-request-id=766fa78a-37d8-4e43-88be-ff0c5082001c
+time="2024-11-25T15:53:23+03:00" level=error msg="Invalid order ID400" func="tages-task-go/pkg/logging.(*Logger).ErrorCtx()" file="logging.go:111" x-request-id=766fa78a-37d8-4e43-88be-ff0c5082001c
+time="2024-11-27T10:37:25+03:00" level=info msg="Initializing server" func="tages-task-go/cmd/server.Initialize()" file="init.go:18"
+time="2024-11-27T10:37:25+03:00" level=info msg="read application configuration" func="tages-task-go/internal/config.GetConfig.func1()" file="config.go:31"
+time="2024-11-27T10:37:25+03:00" level=info msg="Connecting to PostgreSQL..." func="tages-task-go/internal/service/db/postgresql.InitDB()" file="connection.go:18"
+time="2024-11-27T10:37:25+03:00" level=info msg="Connected to PostgreSQL" func="tages-task-go/internal/service/db/postgresql.InitDB()" file="connection.go:66"
+time="2024-11-27T10:37:37+03:00" level=info msg="Starting request: GET /orders/1" func="tages-task-go/internal/transport/http.(*Handler).InitRoutes.WithLoggerMiddleware.func1.1()" file="handler.go:88" x-request-id=17112635-d98f-4312-a486-56cb813a5fbe
+time="2024-11-27T10:37:37+03:00" level=error msg="Invalid order ID400" func="tages-task-go/pkg/logging.(*Logger).ErrorCtx()" file="logging.go:111" x-request-id=17112635-d98f-4312-a486-56cb813a5fbe
+time="2024-11-27T10:38:28+03:00" level=info msg="Starting request: GET /orders" func="tages-task-go/internal/transport/http.(*Handler).InitRoutes.WithLoggerMiddleware.func1.1()" file="handler.go:88" x-request-id=f770b625-3e92-43dd-a86a-e2982c38b019
+time="2024-11-27T10:38:28+03:00" level=info msg="Fetching all orders in usecase" func="tages-task-go/pkg/logging.(*Logger).InfoCtx()" file="logging.go:106" x-request-id=f770b625-3e92-43dd-a86a-e2982c38b019
+time="2024-11-27T10:38:28+03:00" level=info msg="Fetching all orders" func="tages-task-go/pkg/logging.(*Logger).InfoCtx()" file="logging.go:106" x-request-id=f770b625-3e92-43dd-a86a-e2982c38b019
+time="2024-11-27T10:38:28+03:00" level=info msg="All orders fetched successfully, count=%d2" func="tages-task-go/pkg/logging.(*Logger).InfoCtx()" file="logging.go:106" x-request-id=f770b625-3e92-43dd-a86a-e2982c38b019
+time="2024-11-27T10:38:28+03:00" level=info msg="All orders retrieved successfully, count=%d2" func="tages-task-go/pkg/logging.(*Logger).InfoCtx()" file="logging.go:106" x-request-id=f770b625-3e92-43dd-a86a-e2982c38b019
+time="2024-11-27T10:38:28+03:00" level=info msg="Get all orders successfully" func="tages-task-go/pkg/logging.(*Logger).InfoCtx()" file="logging.go:106" x-request-id=f770b625-3e92-43dd-a86a-e2982c38b019
+time="2024-11-27T10:52:41+03:00" level=info msg="Initializing server" func="tages-task-go/cmd/server.Initialize()" file="init.go:18"
+time="2024-11-27T10:52:41+03:00" level=info msg="read application configuration" func="tages-task-go/internal/config.GetConfig.func1()" file="config.go:31"
+time="2024-11-27T10:52:41+03:00" level=info msg="Connecting to PostgreSQL..." func="tages-task-go/internal/service/db/postgresql.InitDB()" file="connection.go:18"
+time="2024-11-27T10:52:41+03:00" level=info msg="Connected to PostgreSQL" func="tages-task-go/internal/service/db/postgresql.InitDB()" file="connection.go:66"
+time="2024-11-27T10:52:47+03:00" level=info msg="Starting request: GET /orders" func="tages-task-go/internal/transport/http.(*Handler).InitRoutes.WithLoggerMiddleware.func1.1()" file="handler.go:88" x-request-id=46be963a-56a1-4841-9146-5952ac359a96
+time="2024-11-27T10:52:47+03:00" level=info msg="Fetching all orders in usecase" func="tages-task-go/pkg/logging.(*Logger).InfoCtx()" file="logging.go:108" caller="orderUseCase.go:53 orderusecase.(*OrderUC).GetAllOrders" x-request-id=46be963a-56a1-4841-9146-5952ac359a96
+time="2024-11-27T10:52:47+03:00" level=info msg="Fetching all orders" func="tages-task-go/pkg/logging.(*Logger).InfoCtx()" file="logging.go:108" caller="orderRepo.go:23 postgresql.(*orderRepository).GetAllOrders" x-request-id=46be963a-56a1-4841-9146-5952ac359a96
+time="2024-11-27T10:52:47+03:00" level=info msg="All orders fetched successfully, count=%d2" func="tages-task-go/pkg/logging.(*Logger).InfoCtx()" file="logging.go:108" caller="orderRepo.go:41 postgresql.(*orderRepository).GetAllOrders" x-request-id=46be963a-56a1-4841-9146-5952ac359a96
+time="2024-11-27T10:52:47+03:00" level=info msg="All orders retrieved successfully, count=%d2" func="tages-task-go/pkg/logging.(*Logger).InfoCtx()" file="logging.go:108" caller="orderUseCase.go:70 orderusecase.(*OrderUC).GetAllOrders" x-request-id=46be963a-56a1-4841-9146-5952ac359a96
+time="2024-11-27T10:52:47+03:00" level=info msg="Get all orders successfully" func="tages-task-go/pkg/logging.(*Logger).InfoCtx()" file="logging.go:108" caller="orderHandler.go:63 http.(*Handler).getAllOrders" x-request-id=46be963a-56a1-4841-9146-5952ac359a96
+time="2024-11-27T10:53:50+03:00" level=info msg="Initializing server" func=tages-task-go/cmd/server.Initialize file="/Users/inveizer/dev/tages-task-go/cmd/server/init.go:18"
+time="2024-11-27T10:53:50+03:00" level=info msg="read application configuration" func=tages-task-go/internal/config.GetConfig.func1 file="/Users/inveizer/dev/tages-task-go/internal/config/config.go:31"
+time="2024-11-27T10:53:50+03:00" level=info msg="Connecting to PostgreSQL..." func=tages-task-go/internal/service/db/postgresql.InitDB file="/Users/inveizer/dev/tages-task-go/internal/service/db/postgresql/connection.go:18"
+time="2024-11-27T10:53:50+03:00" level=info msg="Connected to PostgreSQL" func=tages-task-go/internal/service/db/postgresql.InitDB file="/Users/inveizer/dev/tages-task-go/internal/service/db/postgresql/connection.go:66"
+time="2024-11-27T10:54:00+03:00" level=info msg="Starting request: GET /orders" func="tages-task-go/internal/transport/http.(*Handler).InitRoutes.WithLoggerMiddleware.func1.1" file="/Users/inveizer/dev/tages-task-go/internal/transport/http/handler.go:88" x-request-id=adff202c-e6d2-4a7e-a262-88488d2861dd
+time="2024-11-27T10:54:00+03:00" level=info msg="Fetching all orders in usecase" func="tages-task-go/pkg/logging.(*Logger).InfoCtx" file="/Users/inveizer/dev/tages-task-go/pkg/logging/logging.go:102" caller="orderUseCase.go:53 orderusecase.(*OrderUC).GetAllOrders" x-request-id=adff202c-e6d2-4a7e-a262-88488d2861dd
+time="2024-11-27T10:54:00+03:00" level=info msg="Fetching all orders" func="tages-task-go/pkg/logging.(*Logger).InfoCtx" file="/Users/inveizer/dev/tages-task-go/pkg/logging/logging.go:102" caller="orderRepo.go:23 postgresql.(*orderRepository).GetAllOrders" x-request-id=adff202c-e6d2-4a7e-a262-88488d2861dd
+time="2024-11-27T10:54:00+03:00" level=info msg="All orders fetched successfully, count=%d2" func="tages-task-go/pkg/logging.(*Logger).InfoCtx" file="/Users/inveizer/dev/tages-task-go/pkg/logging/logging.go:102" caller="orderRepo.go:41 postgresql.(*orderRepository).GetAllOrders" x-request-id=adff202c-e6d2-4a7e-a262-88488d2861dd
+time="2024-11-27T10:54:00+03:00" level=info msg="All orders retrieved successfully, count=%d2" func="tages-task-go/pkg/logging.(*Logger).InfoCtx" file="/Users/inveizer/dev/tages-task-go/pkg/logging/logging.go:102" caller="orderUseCase.go:70 orderusecase.(*OrderUC).GetAllOrders" x-request-id=adff202c-e6d2-4a7e-a262-88488d2861dd
+time="2024-11-27T10:54:00+03:00" level=info msg="Get all orders successfully" func="tages-task-go/pkg/logging.(*Logger).InfoCtx" file="/Users/inveizer/dev/tages-task-go/pkg/logging/logging.go:102" caller="orderHandler.go:63 http.(*Handler).getAllOrders" x-request-id=adff202c-e6d2-4a7e-a262-88488d2861dd
+time="2024-11-27T10:54:23+03:00" level=info msg="Initializing server"
+time="2024-11-27T10:54:23+03:00" level=info msg="read application configuration"
+time="2024-11-27T10:54:23+03:00" level=info msg="Connecting to PostgreSQL..."
+time="2024-11-27T10:54:23+03:00" level=info msg="Connected to PostgreSQL"
+time="2024-11-27T10:54:27+03:00" level=info msg="Starting request: GET /orders" x-request-id=524c60ec-d8e8-4ec3-bf84-3d7c2561d666
+time="2024-11-27T10:54:27+03:00" level=info msg="Fetching all orders in usecase" caller="orderUseCase.go:53 orderusecase.(*OrderUC).GetAllOrders" x-request-id=524c60ec-d8e8-4ec3-bf84-3d7c2561d666
+time="2024-11-27T10:54:27+03:00" level=info msg="Fetching all orders" caller="orderRepo.go:23 postgresql.(*orderRepository).GetAllOrders" x-request-id=524c60ec-d8e8-4ec3-bf84-3d7c2561d666
+time="2024-11-27T10:54:27+03:00" level=info msg="All orders fetched successfully, count=%d2" caller="orderRepo.go:41 postgresql.(*orderRepository).GetAllOrders" x-request-id=524c60ec-d8e8-4ec3-bf84-3d7c2561d666
+time="2024-11-27T10:54:27+03:00" level=info msg="All orders retrieved successfully, count=%d2" caller="orderUseCase.go:70 orderusecase.(*OrderUC).GetAllOrders" x-request-id=524c60ec-d8e8-4ec3-bf84-3d7c2561d666
+time="2024-11-27T10:54:27+03:00" level=info msg="Get all orders successfully" caller="orderHandler.go:63 http.(*Handler).getAllOrders" x-request-id=524c60ec-d8e8-4ec3-bf84-3d7c2561d666
+time="2024-11-27T10:54:45+03:00" level=info msg="Initializing server"
+time="2024-11-27T10:54:45+03:00" level=info msg="read application configuration"
+time="2024-11-27T10:54:45+03:00" level=info msg="Connecting to PostgreSQL..."
+time="2024-11-27T10:54:45+03:00" level=info msg="Connected to PostgreSQL"
+time="2024-11-27T10:54:51+03:00" level=info msg="Starting request: GET /orders" x-request-id=f2f8ffc7-5bdc-4245-8f9f-e7fd911a2c6a
+time="2024-11-27T10:54:51+03:00" level=info msg="Fetching all orders in usecase" caller="orderUseCase.go:53 orderusecase.(*OrderUC).GetAllOrders" x-request-id=f2f8ffc7-5bdc-4245-8f9f-e7fd911a2c6a
+time="2024-11-27T10:54:51+03:00" level=info msg="Fetching all orders" caller="orderRepo.go:23 postgresql.(*orderRepository).GetAllOrders" x-request-id=f2f8ffc7-5bdc-4245-8f9f-e7fd911a2c6a
+time="2024-11-27T10:54:51+03:00" level=info msg="All orders fetched successfully, count=%d2" caller="orderRepo.go:41 postgresql.(*orderRepository).GetAllOrders" x-request-id=f2f8ffc7-5bdc-4245-8f9f-e7fd911a2c6a
+time="2024-11-27T10:54:51+03:00" level=info msg="All orders retrieved successfully, count=%d2" caller="orderUseCase.go:70 orderusecase.(*OrderUC).GetAllOrders" x-request-id=f2f8ffc7-5bdc-4245-8f9f-e7fd911a2c6a
+time="2024-11-27T10:54:51+03:00" level=info msg="Get all orders successfully" caller="orderHandler.go:63 http.(*Handler).getAllOrders" x-request-id=f2f8ffc7-5bdc-4245-8f9f-e7fd911a2c6a
+time="2024-11-27T10:54:56+03:00" level=info msg="Starting request: GET /orders/1" x-request-id=90310350-ccb8-446c-9948-0f15f790edb2
+time="2024-11-27T10:54:56+03:00" level=error msg="Invalid order ID400" caller="orderHandler.go:72 http.(*Handler).getOrderByID" x-request-id=90310350-ccb8-446c-9948-0f15f790edb2
+time="2024-11-27T11:04:10+03:00" level=info msg="Initializing server"
+time="2024-11-27T11:04:10+03:00" level=info msg="read application configuration"
+time="2024-11-27T11:04:10+03:00" level=info msg="Connecting to PostgreSQL..."
+time="2024-11-27T11:04:10+03:00" level=info msg="Connected to PostgreSQL"
+time="2024-11-27T11:04:15+03:00" level=info msg="Starting request: GET /orders/1" x-request-id=59e8ced8-4ad1-4f69-a6fa-943a56f211f7
+time="2024-11-27T11:04:15+03:00" level=error msg="Invalid order ID400" caller="internal/transport/http/orderHandler.go:72 http.(*Handler).getOrderByID" x-request-id=59e8ced8-4ad1-4f69-a6fa-943a56f211f7
+time="2024-11-27T11:13:11+03:00" level=info msg="Initializing server"
+time="2024-11-27T11:13:11+03:00" level=info msg="read application configuration"
+time="2024-11-27T11:13:11+03:00" level=info msg="Connecting to PostgreSQL..."
+time="2024-11-27T11:13:11+03:00" level=info msg="Connected to PostgreSQL"
+time="2024-11-27T11:13:14+03:00" level=info msg="Starting request: GET /orders/1" x-request-id=3d311d6c-dee4-4101-92ed-ced848e7b4f5
+time="2024-11-27T11:13:14+03:00" level=error msg="Invalid order ID400" caller="internal/transport/http/orderHandler.go:72 http.(*Handler).getOrderByID" x-request-id=3d311d6c-dee4-4101-92ed-ced848e7b4f5
+time="2024-11-27T11:13:20+03:00" level=info msg="Starting request: GET /orders" x-request-id=2aa63958-8d6d-40eb-b80e-edafe5d64a94
+time="2024-11-27T11:13:20+03:00" level=info msg="Fetching all orders in usecase" caller="internal/usecases/orderusecase/orderUseCase.go:53 orderusecase.(*OrderUC).GetAllOrders" x-request-id=2aa63958-8d6d-40eb-b80e-edafe5d64a94
+time="2024-11-27T11:13:20+03:00" level=info msg="Fetching all orders" caller="internal/service/db/postgresql/orderRepo.go:23 postgresql.(*orderRepository).GetAllOrders" x-request-id=2aa63958-8d6d-40eb-b80e-edafe5d64a94
+time="2024-11-27T11:13:20+03:00" level=info msg="All orders fetched successfully, count=%d2" caller="internal/service/db/postgresql/orderRepo.go:41 postgresql.(*orderRepository).GetAllOrders" x-request-id=2aa63958-8d6d-40eb-b80e-edafe5d64a94
+time="2024-11-27T11:13:20+03:00" level=info msg="All orders retrieved successfully, count=%d2" caller="internal/usecases/orderusecase/orderUseCase.go:70 orderusecase.(*OrderUC).GetAllOrders" x-request-id=2aa63958-8d6d-40eb-b80e-edafe5d64a94
+time="2024-11-27T11:13:20+03:00" level=info msg="Get all orders successfully" caller="internal/transport/http/orderHandler.go:63 http.(*Handler).getAllOrders" x-request-id=2aa63958-8d6d-40eb-b80e-edafe5d64a94
+time="2024-11-27T11:16:15+03:00" level=info msg="Initializing server"
+time="2024-11-27T11:16:15+03:00" level=info msg="read application configuration"
+time="2024-11-27T11:16:15+03:00" level=info msg="Connecting to PostgreSQL..."
+time="2024-11-27T11:16:15+03:00" level=info msg="Connected to PostgreSQL"
+time="2024-11-27T11:16:19+03:00" level=info msg="Starting request: GET /orders" x-request-id=4ee39f56-2daf-4848-8bb6-601b5b061d71
+time="2024-11-27T11:16:19+03:00" level=info msg="Fetching all orders in usecase" caller="internal/usecases/orderusecase/orderUseCase.go:53 orderusecase.(*OrderUC).GetAllOrders" x-request-id=4ee39f56-2daf-4848-8bb6-601b5b061d71
+time="2024-11-27T11:16:19+03:00" level=info msg="Fetching all orders" caller="internal/service/db/postgresql/orderRepo.go:23 postgresql.(*orderRepository).GetAllOrders" x-request-id=4ee39f56-2daf-4848-8bb6-601b5b061d71
+time="2024-11-27T11:16:19+03:00" level=info msg="All orders fetched successfully, count=%d2" caller="internal/service/db/postgresql/orderRepo.go:41 postgresql.(*orderRepository).GetAllOrders" x-request-id=4ee39f56-2daf-4848-8bb6-601b5b061d71
+time="2024-11-27T11:16:19+03:00" level=info msg="All orders retrieved successfully, count=%d2" caller="internal/usecases/orderusecase/orderUseCase.go:70 orderusecase.(*OrderUC).GetAllOrders" x-request-id=4ee39f56-2daf-4848-8bb6-601b5b061d71
+time="2024-11-27T11:16:19+03:00" level=info msg="Get all orders successfully" caller="internal/transport/http/orderHandler.go:63 http.(*Handler).getAllOrders" x-request-id=4ee39f56-2daf-4848-8bb6-601b5b061d71
+time="2024-11-27T11:16:27+03:00" level=info msg="Starting request: GET /orders" x-request-id=d8238fdd-65ff-43c6-b73b-c0608e232c46
+time="2024-11-27T11:16:27+03:00" level=info msg="Fetching all orders in usecase" caller="internal/usecases/orderusecase/orderUseCase.go:53 orderusecase.(*OrderUC).GetAllOrders" x-request-id=d8238fdd-65ff-43c6-b73b-c0608e232c46
+time="2024-11-27T11:16:27+03:00" level=info msg="Fetching all orders" caller="internal/service/db/postgresql/orderRepo.go:23 postgresql.(*orderRepository).GetAllOrders" x-request-id=d8238fdd-65ff-43c6-b73b-c0608e232c46
+time="2024-11-27T11:16:27+03:00" level=info msg="All orders fetched successfully, count=%d2" caller="internal/service/db/postgresql/orderRepo.go:41 postgresql.(*orderRepository).GetAllOrders" x-request-id=d8238fdd-65ff-43c6-b73b-c0608e232c46
+time="2024-11-27T11:16:27+03:00" level=info msg="All orders retrieved successfully, count=%d2" caller="internal/usecases/orderusecase/orderUseCase.go:70 orderusecase.(*OrderUC).GetAllOrders" x-request-id=d8238fdd-65ff-43c6-b73b-c0608e232c46
+time="2024-11-27T11:16:27+03:00" level=info msg="Get all orders successfully" caller="internal/transport/http/orderHandler.go:63 http.(*Handler).getAllOrders" x-request-id=d8238fdd-65ff-43c6-b73b-c0608e232c46

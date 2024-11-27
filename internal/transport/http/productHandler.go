@@ -20,6 +20,7 @@ func (h *Handler) createProduct(w http.ResponseWriter, r *http.Request) {
 	var productDTO modelstr.ProductDTO
 	if err := json.NewDecoder(r.Body).Decode(&productDTO); err != nil {
 		handleError(w, err, "Invalid request payload", http.StatusBadRequest)
+		h.Logger.ErrorCtx(r.Context(), "Invalid request payload: %v", err)
 		return
 	}
 
@@ -28,12 +29,15 @@ func (h *Handler) createProduct(w http.ResponseWriter, r *http.Request) {
 		Name:  productDTO.Name,
 		Price: productDTO.Price,
 	}
+
 	if err := h.ProductUsecase.CreateProduct(r.Context(), productUC); err != nil {
 		handleError(w, err, "Failed to create product", http.StatusInternalServerError)
+		h.Logger.ErrorCtx(r.Context(), "Failed to create product: %v", err)
 		return
 	}
 
 	sendJSONResponse(w, http.StatusCreated, map[string]string{"message": "Product created successfully"})
+	h.Logger.InfoCtx(r.Context(), "Product created successfully: ID=%d, Name=%s", productDTO.ID, productDTO.Name)
 }
 
 // getAllProducts - обработчик для получения всех продуктов
@@ -41,6 +45,7 @@ func (h *Handler) getAllProducts(w http.ResponseWriter, r *http.Request) {
 	productsUC, err := h.ProductUsecase.GetAllProducts(r.Context())
 	if err != nil {
 		handleError(w, err, "Failed to fetch products", http.StatusInternalServerError)
+		h.Logger.ErrorCtx(r.Context(), "Failed to fetch products: %v", err)
 		return
 	}
 
@@ -55,20 +60,23 @@ func (h *Handler) getAllProducts(w http.ResponseWriter, r *http.Request) {
 	}
 
 	sendJSONResponse(w, http.StatusOK, productsDTO)
+	h.Logger.InfoCtx(r.Context(), "Fetched all products, count=%d", len(productsDTO))
 }
 
-// getProduct - обработчик для получения продукта по ID
+// getProductByID - обработчик для получения продукта по ID
 func (h *Handler) getProductByID(w http.ResponseWriter, r *http.Request) {
-	idStr := r.URL.Path[len("/products/"):]
-	id, err := strconv.Atoi(idStr)
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
 		handleError(w, err, "Invalid product ID", http.StatusBadRequest)
+		h.Logger.ErrorCtx(r.Context(), "Invalid product ID: %s", vars["id"])
 		return
 	}
 
 	productUC, err := h.ProductUsecase.GetProduct(r.Context(), id)
 	if err != nil {
 		handleError(w, err, "Product not found", http.StatusNotFound)
+		h.Logger.DebugCtx(r.Context(), "Product not found: ID=%d", id)
 		return
 	}
 
@@ -77,5 +85,7 @@ func (h *Handler) getProductByID(w http.ResponseWriter, r *http.Request) {
 		Name:  productUC.Name,
 		Price: productUC.Price,
 	}
+
 	sendJSONResponse(w, http.StatusOK, productDTO)
+	h.Logger.InfoCtx(r.Context(), "Fetched product: ID=%d, Name=%s", productDTO.ID, productDTO.Name)
 }

@@ -26,8 +26,8 @@ func Initialize() (*mux.Router, error) {
 	orderUC := orderusecase.New(orderRepo, logger)
 
 	// Инициализация хендлеров и маршрутов
-	handler := http.NewHandler(productUC, orderUC)
-	router := handler.InitRoutes()
+	handler := http.NewHandler(productUC, orderUC, logger)
+	router := handler.InitRoutes(logger)
 
 	return router, nil
 }

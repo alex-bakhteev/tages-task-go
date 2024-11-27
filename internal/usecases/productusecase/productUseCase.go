@@ -19,23 +19,23 @@ func New(repo usecases.ProductRepo, logger *logging.Logger) *ProductUsecase {
 }
 
 func (p *ProductUsecase) CreateProduct(ctx context.Context, product modelsuc.ProductUC) error {
-	productSrv := modelssvc.ProductSrv{
+	productSrv := &modelssvc.ProductSrv{
 		Name:  product.Name,
 		Price: product.Price,
 	}
 
 	if err := p.repo.CreateProduct(ctx, productSrv); err != nil {
-		p.logger.Error("Failed to create product: ", err)
+		p.logger.ErrorCtx(ctx, "Failed to create product: %v", err)
 		return errors.New("failed to create product: " + err.Error())
 	}
-	p.logger.Info("Product created successfully")
+	p.logger.InfoCtx(ctx, "Product created successfully: Name=%s", product.Name)
 	return nil
 }
 
 func (p *ProductUsecase) GetProduct(ctx context.Context, id int) (modelsuc.ProductUC, error) {
 	productSrv, err := p.repo.GetProductByID(ctx, id)
 	if err != nil {
-		p.logger.Error("Failed to get product by ID: ", err)
+		p.logger.ErrorCtx(ctx, "Failed to get product by ID=%d: %v", id, err)
 		return modelsuc.ProductUC{}, errors.New("failed to get product: " + err.Error())
 	}
 
@@ -44,14 +44,16 @@ func (p *ProductUsecase) GetProduct(ctx context.Context, id int) (modelsuc.Produ
 		Name:  productSrv.Name,
 		Price: productSrv.Price,
 	}
-	p.logger.Info("Product retrieved successfully by ID:", id)
+	p.logger.InfoCtx(ctx, "Product retrieved successfully by ID=%d", id)
 	return productUC, nil
 }
 
 func (p *ProductUsecase) GetAllProducts(ctx context.Context) ([]modelsuc.ProductUC, error) {
+	p.logger.InfoCtx(ctx, "Fetching all products in usecase")
+
 	productsSrv, err := p.repo.GetAllProducts(ctx)
 	if err != nil {
-		p.logger.Error("Failed to get all products: ", err)
+		p.logger.ErrorCtx(ctx, "Failed to get all products: %v", err)
 		return nil, errors.New("failed to get products: " + err.Error())
 	}
 
@@ -64,6 +66,6 @@ func (p *ProductUsecase) GetAllProducts(ctx context.Context) ([]modelsuc.Product
 		}
 		productsUC = append(productsUC, productUC)
 	}
-	p.logger.Info("All products retrieved successfully")
+	p.logger.InfoCtx(ctx, "All products retrieved successfully, count=%d", len(productsUC))
 	return productsUC, nil
 }
