@@ -5,8 +5,7 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"tages-task-go/internal/service/db/postgresql"
 	"tages-task-go/internal/transport/http"
-	"tages-task-go/internal/usecases/orderusecase"
-	"tages-task-go/internal/usecases/productusecase"
+	"tages-task-go/internal/usecases"
 	"tages-task-go/pkg/logging"
 )
 
@@ -22,11 +21,10 @@ func Initialize() (*mux.Router, error) {
 	// Инициализация репозиториев и юзкейсов
 	productRepo := postgresql.NewProductRepository(DbPool, logger)
 	orderRepo := postgresql.NewOrderRepository(DbPool, logger)
-	productUC := productusecase.New(productRepo, logger)
-	orderUC := orderusecase.New(orderRepo, logger)
+	usecase := usecases.NewUsecase(productRepo, orderRepo, logger)
 
 	// Инициализация хендлеров и маршрутов
-	handler := http.NewHandler(productUC, orderUC, logger)
+	handler := http.NewHandler(usecase, logger)
 	router := handler.InitRoutes(logger)
 
 	return router, nil

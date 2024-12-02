@@ -7,15 +7,18 @@ import (
 	"github.com/gorilla/mux"
 	"net/http"
 	"tages-task-go/internal/models/modelsuc"
+	"tages-task-go/internal/usecases"
 	"tages-task-go/pkg/logging"
 )
 
+//go:generate go run github.com/vektra/mockery/v2@v2.49.1 --name=ProductUsecase
 type ProductUsecase interface {
 	CreateProduct(ctx context.Context, product modelsuc.ProductUC) error
 	GetProduct(ctx context.Context, id int) (modelsuc.ProductUC, error)
 	GetAllProducts(ctx context.Context) ([]modelsuc.ProductUC, error)
 }
 
+//go:generate go run github.com/vektra/mockery/v2@v2.49.1 --name=OrderUsecase
 type OrderUsecase interface {
 	CreateOrder(ctx context.Context, order modelsuc.OrderUC) error
 	GetOrder(ctx context.Context, id int) (modelsuc.OrderUC, error)
@@ -28,10 +31,10 @@ type Handler struct {
 	Logger         *logging.Logger
 }
 
-func NewHandler(productUC ProductUsecase, orderUC OrderUsecase, logger *logging.Logger) *Handler {
+func NewHandler(usecase *usecases.Usecase, logger *logging.Logger) *Handler {
 	return &Handler{
-		ProductUsecase: productUC,
-		OrderUsecase:   orderUC,
+		ProductUsecase: usecase.ProductUC,
+		OrderUsecase:   usecase.OrderUC,
 		Logger:         logger,
 	}
 }

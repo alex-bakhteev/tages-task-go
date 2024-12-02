@@ -5,37 +5,38 @@ import (
 	"errors"
 	"tages-task-go/internal/models/modelssvc"
 	"tages-task-go/internal/models/modelsuc"
-	"tages-task-go/internal/usecases"
 	"tages-task-go/pkg/logging"
 )
 
-type ProductUsecase struct {
-	repo   usecases.ProductRepo
-	logger *logging.Logger
+type ProductRepo interface {
+	CreateProduct(ctx context.Context, product *modelssvc.ProductSrv) error
+	GetProductByID(ctx context.Context, id int) (*modelssvc.ProductSrv, error)
+	GetAllProducts(ctx context.Context) ([]*modelssvc.ProductSrv, error)
 }
 
-func New(repo usecases.ProductRepo, logger *logging.Logger) *ProductUsecase {
-	return &ProductUsecase{repo: repo, logger: logger}
+type ProductUC struct {
+	Repo   ProductRepo
+	Logger *logging.Logger
 }
 
-func (p *ProductUsecase) CreateProduct(ctx context.Context, product modelsuc.ProductUC) error {
+func (p *ProductUC) CreateProduct(ctx context.Context, product modelsuc.ProductUC) error {
 	productSrv := &modelssvc.ProductSrv{
 		Name:  product.Name,
 		Price: product.Price,
 	}
 
-	if err := p.repo.CreateProduct(ctx, productSrv); err != nil {
-		p.logger.ErrorCtx(ctx, "Failed to create product: %v", err)
+	if err := p.Repo.CreateProduct(ctx, productSrv); err != nil {
+		p.Logger.ErrorCtx(ctx, "Failed to create product: %v", err)
 		return errors.New("failed to create product: " + err.Error())
 	}
-	p.logger.InfoCtx(ctx, "Product created successfully: Name=%s", product.Name)
+	p.Logger.InfoCtx(ctx, "Product created successfully: Name=%s", product.Name)
 	return nil
 }
 
-func (p *ProductUsecase) GetProduct(ctx context.Context, id int) (modelsuc.ProductUC, error) {
-	productSrv, err := p.repo.GetProductByID(ctx, id)
+func (p *ProductUC) GetProduct(ctx context.Context, id int) (modelsuc.ProductUC, error) {
+	productSrv, err := p.Repo.GetProductByID(ctx, id)
 	if err != nil {
-		p.logger.ErrorCtx(ctx, "Failed to get product by ID=%d: %v", id, err)
+		p.Logger.ErrorCtx(ctx, "Failed to get product by ID=%d: %v", id, err)
 		return modelsuc.ProductUC{}, errors.New("failed to get product: " + err.Error())
 	}
 
@@ -44,16 +45,16 @@ func (p *ProductUsecase) GetProduct(ctx context.Context, id int) (modelsuc.Produ
 		Name:  productSrv.Name,
 		Price: productSrv.Price,
 	}
-	p.logger.InfoCtx(ctx, "Product retrieved successfully by ID=%d", id)
+	p.Logger.InfoCtx(ctx, "Product retrieved successfully by ID=%d", id)
 	return productUC, nil
 }
 
-func (p *ProductUsecase) GetAllProducts(ctx context.Context) ([]modelsuc.ProductUC, error) {
-	p.logger.InfoCtx(ctx, "Fetching all products in usecase")
+func (p *ProductUC) GetAllProducts(ctx context.Context) ([]modelsuc.ProductUC, error) {
+	p.Logger.InfoCtx(ctx, "Fetching all products in usecase")
 
-	productsSrv, err := p.repo.GetAllProducts(ctx)
+	productsSrv, err := p.Repo.GetAllProducts(ctx)
 	if err != nil {
-		p.logger.ErrorCtx(ctx, "Failed to get all products: %v", err)
+		p.Logger.ErrorCtx(ctx, "Failed to get all products: %v", err)
 		return nil, errors.New("failed to get products: " + err.Error())
 	}
 
@@ -66,6 +67,6 @@ func (p *ProductUsecase) GetAllProducts(ctx context.Context) ([]modelsuc.Product
 		}
 		productsUC = append(productsUC, productUC)
 	}
-	p.logger.InfoCtx(ctx, "All products retrieved successfully, count=%d", len(productsUC))
+	p.Logger.InfoCtx(ctx, "All products retrieved successfully, count=%d", len(productsUC))
 	return productsUC, nil
 }

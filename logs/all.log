@@ -121,3 +121,43 @@ time="2024-11-27T11:16:27+03:00" level=info msg="Fetching all orders" caller="in
 time="2024-11-27T11:16:27+03:00" level=info msg="All orders fetched successfully, count=%d2" caller="internal/service/db/postgresql/orderRepo.go:41 postgresql.(*orderRepository).GetAllOrders" x-request-id=d8238fdd-65ff-43c6-b73b-c0608e232c46
 time="2024-11-27T11:16:27+03:00" level=info msg="All orders retrieved successfully, count=%d2" caller="internal/usecases/orderusecase/orderUseCase.go:70 orderusecase.(*OrderUC).GetAllOrders" x-request-id=d8238fdd-65ff-43c6-b73b-c0608e232c46
 time="2024-11-27T11:16:27+03:00" level=info msg="Get all orders successfully" caller="internal/transport/http/orderHandler.go:63 http.(*Handler).getAllOrders" x-request-id=d8238fdd-65ff-43c6-b73b-c0608e232c46
+time="2024-12-02T12:41:27+03:00" level=info msg="Initializing server"
+time="2024-12-02T12:41:27+03:00" level=info msg="read application configuration"
+time="2024-12-02T12:41:27+03:00" level=info msg="Connecting to PostgreSQL..."
+time="2024-12-02T12:41:27+03:00" level=info msg="Connected to PostgreSQL"
+time="2024-12-02T12:41:40+03:00" level=info msg="Starting request: GET /orders" x-request-id=9266a606-5130-4179-99ca-702d3682cd8d
+time="2024-12-02T12:41:40+03:00" level=info msg="Fetching all orders in usecase" caller="internal/usecases/orderusecase/orderUseCase.go:53 orderusecase.(*OrderUC).GetAllOrders" x-request-id=9266a606-5130-4179-99ca-702d3682cd8d
+time="2024-12-02T12:41:40+03:00" level=info msg="Fetching all orders" caller="internal/service/db/postgresql/orderRepo.go:23 postgresql.(*orderRepository).GetAllOrders" x-request-id=9266a606-5130-4179-99ca-702d3682cd8d
+time="2024-12-02T12:41:40+03:00" level=info msg="All orders fetched successfully, count=%d2" caller="internal/service/db/postgresql/orderRepo.go:41 postgresql.(*orderRepository).GetAllOrders" x-request-id=9266a606-5130-4179-99ca-702d3682cd8d
+time="2024-12-02T12:41:40+03:00" level=info msg="All orders retrieved successfully, count=%d2" caller="internal/usecases/orderusecase/orderUseCase.go:70 orderusecase.(*OrderUC).GetAllOrders" x-request-id=9266a606-5130-4179-99ca-702d3682cd8d
+time="2024-12-02T12:41:40+03:00" level=info msg="Get all orders successfully" caller="internal/transport/http/orderHandler.go:63 http.(*Handler).getAllOrders" x-request-id=9266a606-5130-4179-99ca-702d3682cd8d
+time="2024-12-02T15:10:28+03:00" level=info msg="Initializing server"
+time="2024-12-02T15:10:28+03:00" level=info msg="read application configuration"
+time="2024-12-02T15:10:28+03:00" level=info msg="Connecting to PostgreSQL..."
+time="2024-12-02T15:10:28+03:00" level=info msg="Connected to PostgreSQL"
+time="2024-12-02T15:10:35+03:00" level=info msg="Starting request: GET /orders" x-request-id=522f6b94-2ad7-453b-b589-ba959ad05fb3
+time="2024-12-02T15:10:35+03:00" level=info msg="Fetching all orders in usecase" caller="internal/usecases/orderusecase/orderUseCase.go:54 orderusecase.(*OrderUC).GetAllOrders" x-request-id=522f6b94-2ad7-453b-b589-ba959ad05fb3
+time="2024-12-02T15:10:35+03:00" level=info msg="Fetching all orders" caller="internal/service/db/postgresql/orderRepo.go:23 postgresql.(*orderRepository).GetAllOrders" x-request-id=522f6b94-2ad7-453b-b589-ba959ad05fb3
+time="2024-12-02T15:10:35+03:00" level=info msg="All orders fetched successfully, count=%d2" caller="internal/service/db/postgresql/orderRepo.go:41 postgresql.(*orderRepository).GetAllOrders" x-request-id=522f6b94-2ad7-453b-b589-ba959ad05fb3
+time="2024-12-02T15:10:35+03:00" level=info msg="All orders retrieved successfully, count=%d2" caller="internal/usecases/orderusecase/orderUseCase.go:71 orderusecase.(*OrderUC).GetAllOrders" x-request-id=522f6b94-2ad7-453b-b589-ba959ad05fb3
+time="2024-12-02T15:10:35+03:00" level=info msg="Get all orders successfully" caller="internal/transport/http/orderHandler.go:63 http.(*Handler).getAllOrders" x-request-id=522f6b94-2ad7-453b-b589-ba959ad05fb3
+time="2024-12-02T15:10:57+03:00" level=info msg="Starting request: GET /orders/2" x-request-id=b0f61c1a-eed8-4582-bdc5-66222e3b9040
+time="2024-12-02T15:10:57+03:00" level=error msg="Invalid order ID400" caller="internal/transport/http/orderHandler.go:72 http.(*Handler).getOrderByID" x-request-id=b0f61c1a-eed8-4582-bdc5-66222e3b9040
+time="2024-12-02T15:11:00+03:00" level=info msg="Starting request: GET /orders/1" x-request-id=ff5bc095-2608-4451-a105-4b8d6ade18fa
+time="2024-12-02T15:11:00+03:00" level=error msg="Invalid order ID400" caller="internal/transport/http/orderHandler.go:72 http.(*Handler).getOrderByID" x-request-id=ff5bc095-2608-4451-a105-4b8d6ade18fa
+time="2024-12-02T15:11:05+03:00" level=info msg="Starting request: GET /orders" x-request-id=987c3b5b-7735-4a84-ac5f-b6c22143bca9
+time="2024-12-02T15:11:05+03:00" level=info msg="Fetching all orders in usecase" caller="internal/usecases/orderusecase/orderUseCase.go:54 orderusecase.(*OrderUC).GetAllOrders" x-request-id=987c3b5b-7735-4a84-ac5f-b6c22143bca9
+time="2024-12-02T15:11:05+03:00" level=info msg="Fetching all orders" caller="internal/service/db/postgresql/orderRepo.go:23 postgresql.(*orderRepository).GetAllOrders" x-request-id=987c3b5b-7735-4a84-ac5f-b6c22143bca9
+time="2024-12-02T15:11:05+03:00" level=info msg="All orders fetched successfully, count=%d2" caller="internal/service/db/postgresql/orderRepo.go:41 postgresql.(*orderRepository).GetAllOrders" x-request-id=987c3b5b-7735-4a84-ac5f-b6c22143bca9
+time="2024-12-02T15:11:05+03:00" level=info msg="All orders retrieved successfully, count=%d2" caller="internal/usecases/orderusecase/orderUseCase.go:71 orderusecase.(*OrderUC).GetAllOrders" x-request-id=987c3b5b-7735-4a84-ac5f-b6c22143bca9
+time="2024-12-02T15:11:05+03:00" level=info msg="Get all orders successfully" caller="internal/transport/http/orderHandler.go:63 http.(*Handler).getAllOrders" x-request-id=987c3b5b-7735-4a84-ac5f-b6c22143bca9
+time="2024-12-02T15:17:01+03:00" level=info msg="Initializing server"
+time="2024-12-02T15:17:01+03:00" level=info msg="read application configuration"
+time="2024-12-02T15:17:01+03:00" level=info msg="Connecting to PostgreSQL..."
+time="2024-12-02T15:17:01+03:00" level=info msg="Connected to PostgreSQL"
+time="2024-12-02T15:17:07+03:00" level=info msg="Starting request: GET /orders" x-request-id=fe4dce9c-2054-4f1f-b868-f8e7478c62ec
+time="2024-12-02T15:17:07+03:00" level=info msg="Fetching all orders in usecase" caller="internal/usecases/orderusecase/orderUseCase.go:54 orderusecase.(*OrderUC).GetAllOrders" x-request-id=fe4dce9c-2054-4f1f-b868-f8e7478c62ec
+time="2024-12-02T15:17:07+03:00" level=info msg="Fetching all orders" caller="internal/service/db/postgresql/orderRepo.go:23 postgresql.(*orderRepository).GetAllOrders" x-request-id=fe4dce9c-2054-4f1f-b868-f8e7478c62ec
+time="2024-12-02T15:17:07+03:00" level=info msg="All orders fetched successfully, count=%d2" caller="internal/service/db/postgresql/orderRepo.go:41 postgresql.(*orderRepository).GetAllOrders" x-request-id=fe4dce9c-2054-4f1f-b868-f8e7478c62ec
+time="2024-12-02T15:17:07+03:00" level=info msg="All orders retrieved successfully, count=%d2" caller="internal/usecases/orderusecase/orderUseCase.go:71 orderusecase.(*OrderUC).GetAllOrders" x-request-id=fe4dce9c-2054-4f1f-b868-f8e7478c62ec
+time="2024-12-02T15:17:07+03:00" level=info msg="Get all orders successfully" caller="internal/transport/http/orderHandler.go:63 http.(*Handler).getAllOrders" x-request-id=fe4dce9c-2054-4f1f-b868-f8e7478c62ec

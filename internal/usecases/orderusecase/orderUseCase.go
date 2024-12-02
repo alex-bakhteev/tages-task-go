@@ -5,17 +5,18 @@ import (
 	"errors"
 	"tages-task-go/internal/models/modelssvc"
 	"tages-task-go/internal/models/modelsuc"
-	"tages-task-go/internal/usecases"
 	"tages-task-go/pkg/logging"
 )
 
-type OrderUC struct {
-	repo   usecases.OrderRepo
-	logger *logging.Logger
+type OrderRepo interface {
+	GetAllOrders(ctx context.Context) ([]*modelssvc.OrderSrv, error)
+	GetOrderByID(ctx context.Context, id int) (*modelssvc.OrderSrv, error)
+	CreateOrder(ctx context.Context, order *modelssvc.OrderSrv) error
 }
 
-func New(repo usecases.OrderRepo, logger *logging.Logger) *OrderUC {
-	return &OrderUC{repo: repo, logger: logger}
+type OrderUC struct {
+	Repo   OrderRepo
+	Logger *logging.Logger
 }
 
 func (o *OrderUC) CreateOrder(ctx context.Context, order modelsuc.OrderUC) error {
@@ -25,18 +26,18 @@ func (o *OrderUC) CreateOrder(ctx context.Context, order modelsuc.OrderUC) error
 		Quantity:  order.Quantity,
 	}
 
-	if err := o.repo.CreateOrder(ctx, &orderSrv); err != nil {
-		o.logger.ErrorCtx(ctx, "Failed to create order: %v", err)
+	if err := o.Repo.CreateOrder(ctx, &orderSrv); err != nil {
+		o.Logger.ErrorCtx(ctx, "Failed to create order: %v", err)
 		return errors.New("failed to create order: " + err.Error())
 	}
-	o.logger.InfoCtx(ctx, "Order created successfully: ID=%d", order.ID)
+	o.Logger.InfoCtx(ctx, "Order created successfully: ID=%d", order.ID)
 	return nil
 }
 
 func (o *OrderUC) GetOrder(ctx context.Context, id int) (modelsuc.OrderUC, error) {
-	orderSrv, err := o.repo.GetOrderByID(ctx, id)
+	orderSrv, err := o.Repo.GetOrderByID(ctx, id)
 	if err != nil {
-		o.logger.ErrorCtx(ctx, "Failed to get order by ID=%d: %v", id, err)
+		o.Logger.ErrorCtx(ctx, "Failed to get order by ID=%d: %v", id, err)
 		return modelsuc.OrderUC{}, errors.New("failed to get order: " + err.Error())
 	}
 
@@ -45,16 +46,16 @@ func (o *OrderUC) GetOrder(ctx context.Context, id int) (modelsuc.OrderUC, error
 		ProductID: orderSrv.ProductID,
 		Quantity:  orderSrv.Quantity,
 	}
-	o.logger.InfoCtx(ctx, "Order retrieved successfully by ID=%d", id)
+	o.Logger.InfoCtx(ctx, "Order retrieved successfully by ID=%d", id)
 	return orderUC, nil
 }
 
 func (o *OrderUC) GetAllOrders(ctx context.Context) ([]modelsuc.OrderUC, error) {
-	o.logger.InfoCtx(ctx, "Fetching all orders in usecase")
+	o.Logger.InfoCtx(ctx, "Fetching all orders in usecase")
 
-	ordersSrv, err := o.repo.GetAllOrders(ctx)
+	ordersSrv, err := o.Repo.GetAllOrders(ctx)
 	if err != nil {
-		o.logger.ErrorCtx(ctx, "Failed to get all orders: %v", err)
+		o.Logger.ErrorCtx(ctx, "Failed to get all orders: %v", err)
 		return nil, errors.New("failed to get orders: " + err.Error())
 	}
 
@@ -67,6 +68,6 @@ func (o *OrderUC) GetAllOrders(ctx context.Context) ([]modelsuc.OrderUC, error) 
 		}
 		ordersUC = append(ordersUC, orderUC)
 	}
-	o.logger.InfoCtx(ctx, "All orders retrieved successfully, count=%d", len(ordersUC))
+	o.Logger.InfoCtx(ctx, "All orders retrieved successfully, count=%d", len(ordersUC))
 	return ordersUC, nil
 }

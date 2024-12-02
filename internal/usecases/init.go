@@ -1,23 +1,29 @@
 package usecases
 
 import (
-	"context"
-	"tages-task-go/internal/models/modelssvc"
+	"tages-task-go/internal/usecases/orderusecase"
+	"tages-task-go/internal/usecases/productusecase"
+	"tages-task-go/pkg/logging"
 )
 
-type OrderRepo interface {
-	GetAllOrders(ctx context.Context) ([]*modelssvc.OrderSrv, error)
-	GetOrderByID(ctx context.Context, id int) (*modelssvc.OrderSrv, error)
-	CreateOrder(ctx context.Context, order *modelssvc.OrderSrv) error
-}
-
-type ProductRepo interface {
-	CreateProduct(ctx context.Context, product *modelssvc.ProductSrv) error
-	GetProductByID(ctx context.Context, id int) (*modelssvc.ProductSrv, error)
-	GetAllProducts(ctx context.Context) ([]*modelssvc.ProductSrv, error)
-}
-
 type Usecase struct {
-	OrderRepo   OrderRepo
-	ProductRepo ProductRepo
+	ProductUC *productusecase.ProductUC
+	OrderUC   *orderusecase.OrderUC
+}
+
+func NewUsecase(
+	productRepo productusecase.ProductRepo,
+	orderRepo orderusecase.OrderRepo,
+	logger *logging.Logger,
+) *Usecase {
+	return &Usecase{
+		ProductUC: &productusecase.ProductUC{
+			Repo:   productRepo,
+			Logger: logger,
+		},
+		OrderUC: &orderusecase.OrderUC{
+			Repo:   orderRepo,
+			Logger: logger,
+		},
+	}
 }
