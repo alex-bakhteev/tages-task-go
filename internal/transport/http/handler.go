@@ -26,16 +26,14 @@ type OrderUsecase interface {
 }
 
 type Handler struct {
-	ProductUsecase ProductUsecase
-	OrderUsecase   OrderUsecase
-	Logger         *logging.Logger
+	Usecase usecases.Usecase
+	Logger  *logging.Logger
 }
 
 func NewHandler(usecase *usecases.Usecase, logger *logging.Logger) *Handler {
 	return &Handler{
-		ProductUsecase: usecase.ProductUC,
-		OrderUsecase:   usecase.OrderUC,
-		Logger:         logger,
+		Usecase: *usecase,
+		Logger:  logger,
 	}
 }
 

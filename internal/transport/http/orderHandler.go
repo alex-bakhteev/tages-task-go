@@ -29,7 +29,7 @@ func (h *Handler) createOrder(w http.ResponseWriter, r *http.Request) {
 		ProductID: orderDTO.ProductID,
 		Quantity:  orderDTO.Quantity,
 	}
-	if err := h.OrderUsecase.CreateOrder(r.Context(), orderUC); err != nil {
+	if err := h.Usecase.CreateOrder(r.Context(), orderUC); err != nil {
 		handleError(w, err, "Failed to create order", http.StatusInternalServerError)
 		h.Logger.ErrorCtx(r.Context(), "Failed to create order", http.StatusInternalServerError)
 		return
@@ -41,7 +41,7 @@ func (h *Handler) createOrder(w http.ResponseWriter, r *http.Request) {
 
 // getOrders - обработчик для получения всех заказов
 func (h *Handler) getAllOrders(w http.ResponseWriter, r *http.Request) {
-	ordersUC, err := h.OrderUsecase.GetAllOrders(r.Context())
+	ordersUC, err := h.Usecase.GetAllOrders(r.Context())
 
 	if err != nil {
 		handleError(w, err, "Failed to fetch orders", http.StatusInternalServerError)
@@ -73,7 +73,7 @@ func (h *Handler) getOrderByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	orderUC, err := h.OrderUsecase.GetOrder(r.Context(), id)
+	orderUC, err := h.Usecase.GetOrder(r.Context(), id)
 	if err != nil {
 		handleError(w, err, "Order not found", http.StatusNotFound)
 		h.Logger.DebugCtx(r.Context(), "Order not found", http.StatusNotFound)

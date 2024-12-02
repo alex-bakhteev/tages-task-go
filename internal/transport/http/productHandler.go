@@ -30,7 +30,7 @@ func (h *Handler) createProduct(w http.ResponseWriter, r *http.Request) {
 		Price: productDTO.Price,
 	}
 
-	if err := h.ProductUsecase.CreateProduct(r.Context(), productUC); err != nil {
+	if err := h.Usecase.CreateProduct(r.Context(), productUC); err != nil {
 		handleError(w, err, "Failed to create product", http.StatusInternalServerError)
 		h.Logger.ErrorCtx(r.Context(), "Failed to create product: %v", err)
 		return
@@ -42,7 +42,7 @@ func (h *Handler) createProduct(w http.ResponseWriter, r *http.Request) {
 
 // getAllProducts - обработчик для получения всех продуктов
 func (h *Handler) getAllProducts(w http.ResponseWriter, r *http.Request) {
-	productsUC, err := h.ProductUsecase.GetAllProducts(r.Context())
+	productsUC, err := h.Usecase.GetAllProducts(r.Context())
 	if err != nil {
 		handleError(w, err, "Failed to fetch products", http.StatusInternalServerError)
 		h.Logger.ErrorCtx(r.Context(), "Failed to fetch products: %v", err)
@@ -73,7 +73,7 @@ func (h *Handler) getProductByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	productUC, err := h.ProductUsecase.GetProduct(r.Context(), id)
+	productUC, err := h.Usecase.GetProduct(r.Context(), id)
 	if err != nil {
 		handleError(w, err, "Product not found", http.StatusNotFound)
 		h.Logger.DebugCtx(r.Context(), "Product not found: ID=%d", id)
